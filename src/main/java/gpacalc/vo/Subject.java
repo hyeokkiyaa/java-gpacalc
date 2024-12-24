@@ -34,4 +34,8 @@ public class Subject {
     public void setScore(String score) {
         this.score = score;
     }
+
+    public String toString() {
+        return subjectName + "," + credit + "," + score;
+    }
 }
