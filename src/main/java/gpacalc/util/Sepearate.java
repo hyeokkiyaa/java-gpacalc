@@ -34,7 +34,9 @@ public class Sepearate {
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("예외가 발생: "  + e.getMessage());
-                System.exit(0);
+//                System.exit(0);
+
+                throw new IllegalArgumentException();
             }
 
             result.add(new Subject(subjectName, credit, score));
