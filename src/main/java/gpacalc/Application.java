@@ -1,6 +1,7 @@
 package gpacalc;
 
 import camp.nextstep.edu.missionutils.Console;
+import gpacalc.util.ScoreValue;
 import gpacalc.util.Sepearate;
 import gpacalc.vo.Subject;
 
@@ -25,12 +26,31 @@ public class Application {
         major = Sepearate.separateByHyphen(majorString);
         general = Sepearate.separateByHyphen(generalString);
 
+        int total_credit = 0;
+        int total_credit_average = 0;
+        double weight_total = 0.0;
         for (Subject s : major) {
-            System.out.println(s.getSubjectName());
+            total_credit += s.getCredit();
+            if (!s.getScore().equals("P") && !s.getScore().equals("NP")) {
+                total_credit_average += s.getCredit();
+                weight_total += calculateWeight(s.getScore(), s.getCredit());
+            }
         }
-        for (Subject s : general) {
-            System.out.println(s.getSubjectName());
-        }
+        double majorScore = (double) Math.round(weight_total / total_credit_average * 100) /100;
 
+        for (Subject s : general) {
+            total_credit += s.getCredit();
+            if (!s.getScore().equals("P") && !s.getScore().equals("NP")) {
+                total_credit_average += s.getCredit();
+                weight_total += calculateWeight(s.getScore(), s.getCredit());
+            }
+        }
+        double allScore =  (double) Math.round(weight_total / total_credit_average * 100) /100;
+
+
+    }
+
+    public static double calculateWeight(String score, int credit) {
+        return ScoreValue.findValue(score) * credit;
     }
 }
